@@ -34,9 +34,9 @@ import {
   IonSelect,
   IonSelectOption,
 } from '@ionic/angular/standalone';
+import { TranslatePipe } from '../../core/adapters';
 import { addIcons } from 'ionicons';
 import { person } from 'ionicons/icons';
-import { TranslatePipe } from '@ngx-translate/core';
 import { PageHeaderComponent } from '../../shared/ui/page-header.component';
 import { ProfileStore } from './profile.store';
 
@@ -63,7 +63,7 @@ import { ProfileStore } from './profile.store';
     PageHeaderComponent,
   ],
   template: `
-    <app-page-header [title]="'profile.title' | translate" />
+    <app-page-header [title]="'profile.title' | appTranslate" />
 
     @if (store.loading()) {
       <ion-progress-bar type="indeterminate" />
@@ -76,7 +76,7 @@ import { ProfileStore } from './profile.store';
             <img
               class="avatar"
               [src]="image.imageDataUri"
-              [alt]="'profile.card.photoAlt' | translate"
+              [alt]="'profile.card.photoAlt' | appTranslate"
             />
           } @else {
             <ion-icon name="person" class="avatar avatar-fallback" aria-hidden="true" />
@@ -84,35 +84,35 @@ import { ProfileStore } from './profile.store';
           <div class="profile-titles">
             <ion-card-title>{{ profile.displayName }}</ion-card-title>
             <ion-card-subtitle>
-              {{ 'profile.card.accountNo' | translate }} {{ profile.accountNo }}
+              {{ 'profile.card.accountNo' | appTranslate }} {{ profile.accountNo }}
             </ion-card-subtitle>
           </div>
         </ion-card-header>
         <ion-card-content>
           <p>
-            {{ 'profile.card.status' | translate }}
+            {{ 'profile.card.status' | appTranslate }}
             {{
               (profile.active ? 'profile.card.statusActive' : 'profile.card.statusInactive')
-                | translate
+                | appTranslate
             }}
           </p>
           @if (profile.memberSince) {
             <p>
-              {{ 'profile.card.memberSince' | translate }}
+              {{ 'profile.card.memberSince' | appTranslate }}
               {{ profile.memberSince | date: 'mediumDate' }}
             </p>
           }
           @if (profile.maskedEmail) {
-            <p>{{ 'profile.card.email' | translate }} {{ profile.maskedEmail }}</p>
+            <p>{{ 'profile.card.email' | appTranslate }} {{ profile.maskedEmail }}</p>
           }
           @if (profile.maskedMobile) {
-            <p>{{ 'profile.card.mobile' | translate }} {{ profile.maskedMobile }}</p>
+            <p>{{ 'profile.card.mobile' | appTranslate }} {{ profile.maskedMobile }}</p>
           }
           <p>
-            {{ 'profile.card.kyc' | translate }}
+            {{ 'profile.card.kyc' | appTranslate }}
             {{
               (profile.kycVerified ? 'profile.card.kycVerified' : 'profile.card.kycPending')
-                | translate
+                | appTranslate
             }}
           </p>
         </ion-card-content>
@@ -121,7 +121,7 @@ import { ProfileStore } from './profile.store';
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title>{{ 'common.section.charges' | translate }}</ion-card-title>
+        <ion-card-title>{{ 'common.section.charges' | appTranslate }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <form class="filter" [formGroup]="chargesForm" (ngSubmit)="applyChargesFilter()">
@@ -130,16 +130,16 @@ import { ProfileStore } from './profile.store';
             fill="outline"
             labelPlacement="stacked"
             interface="popover"
-            [label]="'common.table.status' | translate"
+            [label]="'common.table.status' | appTranslate"
           >
             <ion-select-option value="all">{{
-              'profile.charges.statusAll' | translate
+              'profile.charges.statusAll' | appTranslate
             }}</ion-select-option>
             <ion-select-option value="active">{{
-              'profile.charges.stateOpen' | translate
+              'profile.charges.stateOpen' | appTranslate
             }}</ion-select-option>
             <ion-select-option value="inactive">{{
-              'profile.charges.stateClosed' | translate
+              'profile.charges.stateClosed' | appTranslate
             }}</ion-select-option>
           </ion-select>
           <ion-input
@@ -148,7 +148,7 @@ import { ProfileStore } from './profile.store';
             formControlName="page"
             fill="outline"
             labelPlacement="stacked"
-            [label]="'common.filter.page' | translate"
+            [label]="'common.filter.page' | appTranslate"
           />
           <ion-input
             type="number"
@@ -156,26 +156,26 @@ import { ProfileStore } from './profile.store';
             formControlName="size"
             fill="outline"
             labelPlacement="stacked"
-            [label]="'common.filter.size' | translate"
+            [label]="'common.filter.size' | appTranslate"
           />
           <ion-button type="submit">
-            {{ 'common.action.applyFilter' | translate }}
+            {{ 'common.action.applyFilter' | appTranslate }}
           </ion-button>
         </form>
 
         <div class="table-scroll">
           <table cdk-table [dataSource]="store.charges()">
             <ng-container cdkColumnDef="name">
-              <th cdk-header-cell *cdkHeaderCellDef>{{ 'common.table.charge' | translate }}</th>
+              <th cdk-header-cell *cdkHeaderCellDef>{{ 'common.table.charge' | appTranslate }}</th>
               <td cdk-cell *cdkCellDef="let row">{{ row.name }}</td>
             </ng-container>
             <ng-container cdkColumnDef="dueDate">
-              <th cdk-header-cell *cdkHeaderCellDef>{{ 'common.table.date' | translate }}</th>
+              <th cdk-header-cell *cdkHeaderCellDef>{{ 'common.table.date' | appTranslate }}</th>
               <td cdk-cell *cdkCellDef="let row">{{ row.dueDate | date: 'mediumDate' }}</td>
             </ng-container>
             <ng-container cdkColumnDef="amount">
               <th cdk-header-cell *cdkHeaderCellDef class="num">
-                {{ 'common.table.amount' | translate }}
+                {{ 'common.table.amount' | appTranslate }}
               </th>
               <td cdk-cell *cdkCellDef="let row" class="num">
                 {{ row.amount | currency: row.currency }}
@@ -183,18 +183,18 @@ import { ProfileStore } from './profile.store';
             </ng-container>
             <ng-container cdkColumnDef="amountOutstanding">
               <th cdk-header-cell *cdkHeaderCellDef class="num">
-                {{ 'common.table.outstanding' | translate }}
+                {{ 'common.table.outstanding' | appTranslate }}
               </th>
               <td cdk-cell *cdkCellDef="let row" class="num">
                 {{ row.amountOutstanding | currency: row.currency }}
               </td>
             </ng-container>
             <ng-container cdkColumnDef="status">
-              <th cdk-header-cell *cdkHeaderCellDef>{{ 'common.table.status' | translate }}</th>
+              <th cdk-header-cell *cdkHeaderCellDef>{{ 'common.table.status' | appTranslate }}</th>
               <td cdk-cell *cdkCellDef="let row">
                 {{
                   (row.active ? 'profile.charges.stateOpen' : 'profile.charges.stateClosed')
-                    | translate
+                    | appTranslate
                 }}
               </td>
             </ng-container>
@@ -203,13 +203,13 @@ import { ProfileStore } from './profile.store';
             <tr cdk-row *cdkRowDef="let row; columns: chargeColumns"></tr>
             <tr class="empty-row" *cdkNoDataRow>
               <td [attr.colspan]="chargeColumns.length">
-                {{ 'common.table.noCharges' | translate }}
+                {{ 'common.table.noCharges' | appTranslate }}
               </td>
             </tr>
           </table>
         </div>
         <p class="total">
-          {{ 'profile.charges.total' | translate: { total: store.totalFilteredRecords() } }}
+          {{ 'profile.charges.total' | appTranslate: { total: store.totalFilteredRecords() } }}
         </p>
       </ion-card-content>
     </ion-card>
