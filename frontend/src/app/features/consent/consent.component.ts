@@ -27,7 +27,7 @@ import {
   IonCardHeader,
   IonCardTitle,
 } from '@ionic/angular/standalone';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe } from '../../core/adapters';
 
 const SCOPE_LABEL_KEYS: Record<string, string> = {
   'openbanking:accounts.read': 'consent.scope.accountsRead',
@@ -61,16 +61,16 @@ function csrfTokenFromCookie(): string {
           class="page-logo"
           priority
         />
-        <ion-card-title>{{ 'consent.title' | translate }}</ion-card-title>
+        <ion-card-title>{{ 'consent.title' | appTranslate }}</ion-card-title>
       </ion-card-header>
 
       <ion-card-content>
         @if (valid) {
-          <p>{{ 'consent.intro' | translate: { tppClientId: tppClientId } }}</p>
-          <p>{{ 'consent.permissionsTitle' | translate }}</p>
+          <p>{{ 'consent.intro' | appTranslate: { tppClientId: tppClientId } }}</p>
+          <p>{{ 'consent.permissionsTitle' | appTranslate }}</p>
           <ul class="permissions">
             @for (scope of scopes; track scope) {
-              <li>{{ scopeLabelKey(scope) | translate }}</li>
+              <li>{{ scopeLabelKey(scope) | appTranslate }}</li>
             }
           </ul>
           <div class="actions">
@@ -79,7 +79,7 @@ function csrfTokenFromCookie(): string {
               <input type="hidden" name="state" [value]="state" />
               <input type="hidden" name="_csrf" [value]="csrfToken" />
               <ion-button type="submit" fill="outline" color="medium">
-                {{ 'consent.denyCta' | translate }}
+                {{ 'consent.denyCta' | appTranslate }}
               </ion-button>
             </form>
             <form method="post" action="/api/v1/oauth2/authorize">
@@ -89,11 +89,11 @@ function csrfTokenFromCookie(): string {
               @for (scope of scopes; track scope) {
                 <input type="hidden" name="scope" [value]="scope" />
               }
-              <ion-button type="submit">{{ 'consent.allowCta' | translate }}</ion-button>
+              <ion-button type="submit">{{ 'consent.allowCta' | appTranslate }}</ion-button>
             </form>
           </div>
         } @else {
-          <p>{{ 'consent.invalid' | translate }}</p>
+          <p>{{ 'consent.invalid' | appTranslate }}</p>
         }
       </ion-card-content>
     </ion-card>

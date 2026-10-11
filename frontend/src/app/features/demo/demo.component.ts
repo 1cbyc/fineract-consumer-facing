@@ -29,7 +29,7 @@ import {
   IonCardTitle,
   IonProgressBar,
 } from '@ionic/angular/standalone';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe } from '../../core/adapters';
 import { PageHeaderComponent } from '../../shared/ui/page-header.component';
 import { DemoStore } from './demo.store';
 
@@ -51,13 +51,13 @@ const PAGE_SIZE = 10;
     PageHeaderComponent,
   ],
   template: `
-    <app-page-header [title]="'demo.title' | translate" />
+    <app-page-header [title]="'demo.title' | appTranslate" />
 
-    <p class="demo-note">{{ 'demo.note' | translate }}</p>
+    <p class="demo-note">{{ 'demo.note' | appTranslate }}</p>
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title>{{ 'demo.audit.title' | translate }}</ion-card-title>
+        <ion-card-title>{{ 'demo.audit.title' | appTranslate }}</ion-card-title>
       </ion-card-header>
 
       @if (store.loading()) {
@@ -69,25 +69,25 @@ const PAGE_SIZE = 10;
           <table cdk-table [dataSource]="store.events()">
             <ng-container cdkColumnDef="eventType">
               <th cdk-header-cell *cdkHeaderCellDef>
-                {{ 'demo.audit.columns.eventType' | translate }}
+                {{ 'demo.audit.columns.eventType' | appTranslate }}
               </th>
               <td cdk-cell *cdkCellDef="let row">{{ row.eventType }}</td>
             </ng-container>
             <ng-container cdkColumnDef="severity">
               <th cdk-header-cell *cdkHeaderCellDef>
-                {{ 'demo.audit.columns.severity' | translate }}
+                {{ 'demo.audit.columns.severity' | appTranslate }}
               </th>
               <td cdk-cell *cdkCellDef="let row">{{ row.severity }}</td>
             </ng-container>
             <ng-container cdkColumnDef="source">
               <th cdk-header-cell *cdkHeaderCellDef>
-                {{ 'demo.audit.columns.source' | translate }}
+                {{ 'demo.audit.columns.source' | appTranslate }}
               </th>
               <td cdk-cell *cdkCellDef="let row">{{ row.source }}</td>
             </ng-container>
             <ng-container cdkColumnDef="receivedAt">
               <th cdk-header-cell *cdkHeaderCellDef>
-                {{ 'demo.audit.columns.receivedAt' | translate }}
+                {{ 'demo.audit.columns.receivedAt' | appTranslate }}
               </th>
               <td cdk-cell *cdkCellDef="let row">{{ row.receivedAt | date: 'medium' }}</td>
             </ng-container>
@@ -95,7 +95,7 @@ const PAGE_SIZE = 10;
             <tr cdk-header-row *cdkHeaderRowDef="columns"></tr>
             <tr cdk-row *cdkRowDef="let row; columns: columns"></tr>
             <tr class="empty-row" *cdkNoDataRow>
-              <td [attr.colspan]="columns.length">{{ 'demo.audit.empty' | translate }}</td>
+              <td [attr.colspan]="columns.length">{{ 'demo.audit.empty' | appTranslate }}</td>
             </tr>
           </table>
         </div>
@@ -107,10 +107,10 @@ const PAGE_SIZE = 10;
             [disabled]="page() === 0 || store.loading()"
             (click)="prev()"
           >
-            {{ 'common.action.prev' | translate }}
+            {{ 'common.action.prev' | appTranslate }}
           </ion-button>
           <ion-button size="small" fill="outline" [disabled]="nextDisabled()" (click)="next()">
-            {{ 'common.action.next' | translate }}
+            {{ 'common.action.next' | appTranslate }}
           </ion-button>
         </div>
       </ion-card-content>
@@ -118,18 +118,18 @@ const PAGE_SIZE = 10;
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title>{{ 'demo.abac.title' | translate }}</ion-card-title>
+        <ion-card-title>{{ 'demo.abac.title' | appTranslate }}</ion-card-title>
       </ion-card-header>
 
       <ion-card-content>
-        <p>{{ 'demo.abac.explanation' | translate }}</p>
+        <p>{{ 'demo.abac.explanation' | appTranslate }}</p>
 
         <div class="actions-row">
           <ion-button class="btn-danger" (click)="tryForbiddenSavings()">
-            {{ 'demo.abac.tryForbiddenSavings' | translate }}
+            {{ 'demo.abac.tryForbiddenSavings' | appTranslate }}
           </ion-button>
           <ion-button class="btn-danger" (click)="tryForbiddenLoan()">
-            {{ 'demo.abac.tryForbiddenLoan' | translate }}
+            {{ 'demo.abac.tryForbiddenLoan' | appTranslate }}
           </ion-button>
         </div>
       </ion-card-content>
