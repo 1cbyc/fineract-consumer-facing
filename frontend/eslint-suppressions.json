@@ -27,16 +27,6 @@
       "count": 1
     }
   },
-  "src/app/features/beneficiaries/beneficiaries.component.spec.ts": {
-    "local/no-i18n-library-import": {
-      "count": 1
-    }
-  },
-  "src/app/features/beneficiaries/beneficiaries.component.ts": {
-    "local/no-i18n-library-import": {
-      "count": 1
-    }
-  },
   "src/app/features/loans/loan-apply.component.spec.ts": {
     "local/no-i18n-library-import": {
       "count": 1

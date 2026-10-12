@@ -37,8 +37,7 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { pencil, personAdd, trash } from 'ionicons/icons';
-import { TranslatePipe } from '@ngx-translate/core';
-import { BeneficiaryQueryData, OVERLAY } from '../../core/adapters';
+import { BeneficiaryQueryData, OVERLAY, TranslatePipe } from '../../core/adapters';
 import { I18nService } from '../../core/i18n/i18n.service';
 import { NotificationService } from '../../core/notifications/notification.service';
 import { OtpComponent } from '../../shared/otp/otp.component';
@@ -66,7 +65,7 @@ const MIN_TRANSFER_LIMIT = 0.01;
     PageHeaderComponent,
   ],
   template: `
-    <app-page-header [title]="'beneficiaries.title' | translate" />
+    <app-page-header [title]="'beneficiaries.title' | appTranslate" />
 
     <ion-card>
       @if (loading()) {
@@ -80,13 +79,13 @@ const MIN_TRANSFER_LIMIT = 0.01;
               <table cdk-table [dataSource]="store.beneficiaries()">
                 <ng-container cdkColumnDef="name">
                   <th cdk-header-cell *cdkHeaderCellDef>
-                    {{ 'beneficiaries.list.nameColumn' | translate }}
+                    {{ 'beneficiaries.list.nameColumn' | appTranslate }}
                   </th>
                   <td cdk-cell *cdkCellDef="let row">{{ row.name }}</td>
                 </ng-container>
                 <ng-container cdkColumnDef="transferLimit">
                   <th cdk-header-cell *cdkHeaderCellDef class="num">
-                    {{ 'beneficiaries.list.transferLimitColumn' | translate }}
+                    {{ 'beneficiaries.list.transferLimitColumn' | appTranslate }}
                   </th>
                   <td cdk-cell *cdkCellDef="let row" class="num">
                     @if (row.transferLimit != null) {
@@ -98,13 +97,13 @@ const MIN_TRANSFER_LIMIT = 0.01;
                 </ng-container>
                 <ng-container cdkColumnDef="actions">
                   <th cdk-header-cell *cdkHeaderCellDef>
-                    {{ 'beneficiaries.list.actionsColumn' | translate }}
+                    {{ 'beneficiaries.list.actionsColumn' | appTranslate }}
                   </th>
                   <td cdk-cell *cdkCellDef="let row" class="row-actions">
                     <ion-button
                       fill="clear"
                       class="icon-action"
-                      [attr.aria-label]="'beneficiaries.edit.title' | translate"
+                      [attr.aria-label]="'beneficiaries.edit.title' | appTranslate"
                       (click)="startEdit(row)"
                     >
                       <ion-icon slot="icon-only" name="pencil" />
@@ -112,7 +111,7 @@ const MIN_TRANSFER_LIMIT = 0.01;
                     <ion-button
                       fill="clear"
                       class="icon-action"
-                      [attr.aria-label]="'beneficiaries.delete.action' | translate"
+                      [attr.aria-label]="'beneficiaries.delete.action' | appTranslate"
                       [disabled]="deletingId() === row.publicId"
                       (click)="confirmDelete(row.publicId)"
                     >
@@ -125,7 +124,7 @@ const MIN_TRANSFER_LIMIT = 0.01;
                 <tr cdk-row *cdkRowDef="let row; columns: columns"></tr>
                 <tr class="empty-row" *cdkNoDataRow>
                   <td [attr.colspan]="columns.length">
-                    {{ 'beneficiaries.list.empty' | translate }}
+                    {{ 'beneficiaries.list.empty' | appTranslate }}
                   </td>
                 </tr>
               </table>
@@ -134,7 +133,7 @@ const MIN_TRANSFER_LIMIT = 0.01;
             <div class="actions-end">
               <ion-button (click)="startAdd()">
                 <ion-icon slot="start" name="person-add" />
-                {{ 'beneficiaries.list.addCta' | translate }}
+                {{ 'beneficiaries.list.addCta' | appTranslate }}
               </ion-button>
             </div>
           }
@@ -145,19 +144,19 @@ const MIN_TRANSFER_LIMIT = 0.01;
                 [maxlength]="nameMaxLength"
                 fill="outline"
                 labelPlacement="stacked"
-                [label]="'beneficiaries.form.nameLabel' | translate"
+                [label]="'beneficiaries.form.nameLabel' | appTranslate"
               />
               <ion-input
                 formControlName="officeName"
                 fill="outline"
                 labelPlacement="stacked"
-                [label]="'beneficiaries.form.officeNameLabel' | translate"
+                [label]="'beneficiaries.form.officeNameLabel' | appTranslate"
               />
               <ion-input
                 formControlName="accountNumber"
                 fill="outline"
                 labelPlacement="stacked"
-                [label]="'beneficiaries.form.accountNumberLabel' | translate"
+                [label]="'beneficiaries.form.accountNumberLabel' | appTranslate"
               />
               <ion-input
                 type="number"
@@ -165,7 +164,7 @@ const MIN_TRANSFER_LIMIT = 0.01;
                 formControlName="transferLimit"
                 fill="outline"
                 labelPlacement="stacked"
-                [label]="'beneficiaries.form.transferLimitLabel' | translate"
+                [label]="'beneficiaries.form.transferLimitLabel' | appTranslate"
               />
               <div class="actions-end">
                 <ion-button
@@ -174,23 +173,23 @@ const MIN_TRANSFER_LIMIT = 0.01;
                   [disabled]="loading()"
                   (click)="backToList()"
                 >
-                  {{ 'beneficiaries.form.cancelCta' | translate }}
+                  {{ 'beneficiaries.form.cancelCta' | appTranslate }}
                 </ion-button>
                 <ion-button type="submit" [disabled]="loading()">
-                  {{ 'beneficiaries.form.submitCta' | translate }}
+                  {{ 'beneficiaries.form.submitCta' | appTranslate }}
                 </ion-button>
               </div>
             </form>
           }
           @case ('edit-form') {
-            <h3>{{ 'beneficiaries.edit.title' | translate }}</h3>
+            <h3>{{ 'beneficiaries.edit.title' | appTranslate }}</h3>
             <form [formGroup]="editForm" (ngSubmit)="submitEdit()">
               <ion-input
                 formControlName="name"
                 [maxlength]="nameMaxLength"
                 fill="outline"
                 labelPlacement="stacked"
-                [label]="'beneficiaries.form.nameLabel' | translate"
+                [label]="'beneficiaries.form.nameLabel' | appTranslate"
               />
               <ion-input
                 type="number"
@@ -198,7 +197,7 @@ const MIN_TRANSFER_LIMIT = 0.01;
                 formControlName="transferLimit"
                 fill="outline"
                 labelPlacement="stacked"
-                [label]="'beneficiaries.form.transferLimitLabel' | translate"
+                [label]="'beneficiaries.form.transferLimitLabel' | appTranslate"
               />
               <div class="actions-end">
                 <ion-button
@@ -207,10 +206,10 @@ const MIN_TRANSFER_LIMIT = 0.01;
                   [disabled]="loading()"
                   (click)="backToList()"
                 >
-                  {{ 'beneficiaries.form.cancelCta' | translate }}
+                  {{ 'beneficiaries.form.cancelCta' | appTranslate }}
                 </ion-button>
                 <ion-button type="submit" [disabled]="loading()">
-                  {{ 'beneficiaries.form.submitCta' | translate }}
+                  {{ 'beneficiaries.form.submitCta' | appTranslate }}
                 </ion-button>
               </div>
             </form>
