@@ -21,7 +21,7 @@ import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { provideIonicAngular } from '@ionic/angular/standalone';
-import { provideTranslateService } from '@ngx-translate/core';
+import { provideI18nTesting } from '../../testing/i18n-testing';
 import { ConsentComponent } from './consent.component';
 
 const AUTHORIZE_URL = '/api/v1/oauth2/authorize';
@@ -38,7 +38,7 @@ function createComponent(params: Record<string, string>): ComponentFixture<Conse
     providers: [
       provideZonelessChangeDetection(),
       provideIonicAngular({ mode: 'md' }),
-      provideTranslateService(),
+      provideI18nTesting(),
       {
         provide: ActivatedRoute,
         useValue: { snapshot: { queryParamMap: convertToParamMap(params) } },
