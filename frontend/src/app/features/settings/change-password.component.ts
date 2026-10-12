@@ -21,8 +21,7 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonButton, IonInput, IonProgressBar } from '@ionic/angular/standalone';
-import { TranslatePipe } from '@ngx-translate/core';
-import { OVERLAY } from '../../core/adapters';
+import { OVERLAY, TranslatePipe } from '../../core/adapters';
 import { I18nService } from '../../core/i18n/i18n.service';
 import { NotificationService } from '../../core/notifications/notification.service';
 import { OtpComponent } from '../../shared/otp/otp.component';
@@ -46,7 +45,7 @@ const PASSWORD_PATTERN = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/;
           formControlName="currentPassword"
           fill="outline"
           labelPlacement="stacked"
-          [label]="'settings.changePassword.currentLabel' | translate"
+          [label]="'settings.changePassword.currentLabel' | appTranslate"
           autocomplete="current-password"
         />
         <ion-input
@@ -54,13 +53,13 @@ const PASSWORD_PATTERN = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/;
           formControlName="newPassword"
           fill="outline"
           labelPlacement="stacked"
-          [label]="'settings.changePassword.newLabel' | translate"
-          [helperText]="'registration.identity.passwordHint' | translate"
+          [label]="'settings.changePassword.newLabel' | appTranslate"
+          [helperText]="'registration.identity.passwordHint' | appTranslate"
           autocomplete="new-password"
         />
         <div class="actions-end">
           <ion-button type="submit" [disabled]="loading()">
-            {{ 'settings.changePassword.submitCta' | translate }}
+            {{ 'settings.changePassword.submitCta' | appTranslate }}
           </ion-button>
         </div>
       </form>

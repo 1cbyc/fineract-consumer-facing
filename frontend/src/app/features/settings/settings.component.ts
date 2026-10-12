@@ -28,8 +28,7 @@ import {
   IonCardHeader,
   IonCardTitle,
 } from '@ionic/angular/standalone';
-import { TranslatePipe } from '@ngx-translate/core';
-import { OpenBankingUserConsentQueryData } from '../../core/adapters';
+import { OpenBankingUserConsentQueryData, TranslatePipe } from '../../core/adapters';
 import { PageHeaderComponent } from '../../shared/ui/page-header.component';
 import { StatusBadgeComponent } from '../../shared/ui/status-badge.component';
 import { ChangePasswordComponent } from './change-password.component';
@@ -52,11 +51,11 @@ import { SettingsStore } from './settings.store';
     ChangePasswordComponent,
   ],
   template: `
-    <app-page-header [title]="'settings.title' | translate" />
+    <app-page-header [title]="'settings.title' | appTranslate" />
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title>{{ 'settings.changePassword.title' | translate }}</ion-card-title>
+        <ion-card-title>{{ 'settings.changePassword.title' | appTranslate }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <app-change-password />
@@ -65,32 +64,32 @@ import { SettingsStore } from './settings.store';
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title>{{ 'settings.connectedApps.title' | translate }}</ion-card-title>
+        <ion-card-title>{{ 'settings.connectedApps.title' | appTranslate }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <div class="table-scroll">
           <table cdk-table [dataSource]="store.consents()">
             <ng-container cdkColumnDef="tppClientId">
               <th cdk-header-cell *cdkHeaderCellDef>
-                {{ 'settings.connectedApps.app' | translate }}
+                {{ 'settings.connectedApps.app' | appTranslate }}
               </th>
               <td cdk-cell *cdkCellDef="let row">{{ row.tppClientId }}</td>
             </ng-container>
             <ng-container cdkColumnDef="permissions">
               <th cdk-header-cell *cdkHeaderCellDef>
-                {{ 'settings.connectedApps.permissions' | translate }}
+                {{ 'settings.connectedApps.permissions' | appTranslate }}
               </th>
               <td cdk-cell *cdkCellDef="let row">{{ formatPermissions(row.permissions) }}</td>
             </ng-container>
             <ng-container cdkColumnDef="status">
-              <th cdk-header-cell *cdkHeaderCellDef>{{ 'common.table.status' | translate }}</th>
+              <th cdk-header-cell *cdkHeaderCellDef>{{ 'common.table.status' | appTranslate }}</th>
               <td cdk-cell *cdkCellDef="let row">
                 <app-status-badge [status]="'settings.connectedApps.status.' + row.status" />
               </td>
             </ng-container>
             <ng-container cdkColumnDef="creationDateTime">
               <th cdk-header-cell *cdkHeaderCellDef>
-                {{ 'settings.connectedApps.granted' | translate }}
+                {{ 'settings.connectedApps.granted' | appTranslate }}
               </th>
               <td cdk-cell *cdkCellDef="let row">
                 {{ row.creationDateTime | date: 'mediumDate' }}
@@ -98,7 +97,7 @@ import { SettingsStore } from './settings.store';
             </ng-container>
             <ng-container cdkColumnDef="expirationDateTime">
               <th cdk-header-cell *cdkHeaderCellDef>
-                {{ 'settings.connectedApps.expires' | translate }}
+                {{ 'settings.connectedApps.expires' | appTranslate }}
               </th>
               <td cdk-cell *cdkCellDef="let row">
                 {{ row.expirationDateTime | date: 'mediumDate' }}
@@ -106,7 +105,7 @@ import { SettingsStore } from './settings.store';
             </ng-container>
             <ng-container cdkColumnDef="actions">
               <th cdk-header-cell *cdkHeaderCellDef>
-                {{ 'settings.connectedApps.actions' | translate }}
+                {{ 'settings.connectedApps.actions' | appTranslate }}
               </th>
               <td cdk-cell *cdkCellDef="let row" class="row-actions">
                 @if (row.status === statusAuthorised) {
@@ -115,7 +114,7 @@ import { SettingsStore } from './settings.store';
                     [disabled]="revokingId() === row.consentId"
                     (click)="confirmRevoke(row.consentId)"
                   >
-                    {{ 'settings.connectedApps.revoke' | translate }}
+                    {{ 'settings.connectedApps.revoke' | appTranslate }}
                   </ion-button>
                 }
               </td>
@@ -125,7 +124,7 @@ import { SettingsStore } from './settings.store';
             <tr cdk-row *cdkRowDef="let row; columns: consentColumns"></tr>
             <tr class="empty-row" *cdkNoDataRow>
               <td [attr.colspan]="consentColumns.length">
-                {{ 'settings.connectedApps.empty' | translate }}
+                {{ 'settings.connectedApps.empty' | appTranslate }}
               </td>
             </tr>
           </table>

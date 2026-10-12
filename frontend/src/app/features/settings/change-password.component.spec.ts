@@ -21,9 +21,9 @@ import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup } from '@angular/forms';
 import { provideIonicAngular } from '@ionic/angular/standalone';
-import { provideTranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { NotificationService } from '../../core/notifications/notification.service';
+import { provideI18nTesting } from '../../testing/i18n-testing';
 import { ChangePasswordComponent } from './change-password.component';
 import { SettingsStore } from './settings.store';
 
@@ -53,7 +53,7 @@ function createComponent(): ComponentFixture<ChangePasswordComponent> {
     providers: [
       provideZonelessChangeDetection(),
       provideIonicAngular({ mode: 'md' }),
-      provideTranslateService(),
+      ...provideI18nTesting(),
       { provide: NotificationService, useValue: { showError } },
       {
         provide: SettingsStore,
